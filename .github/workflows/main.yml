@@ -1,13 +1,22 @@
-name: CI Workflow
+name: Python Code Check
 on:
   push:
     branches:
       - main
 jobs:
-  build:
+  check_code:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Print Hello World
-        run: echo "Hello, World!"
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.8"
+      - name: Run maintest.py
+        run: |
+          python maintest.py  # This will execute your Python file
+      - name: Print success message
+        run: >
+          echo "File has been checked now"  # Print the message after running the
+          file

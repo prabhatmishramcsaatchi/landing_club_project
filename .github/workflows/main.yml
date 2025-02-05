@@ -1,22 +1,22 @@
-name: Python Code Check
-on:
-  push:
-    branches:
-      - main
+name: Python CI
+
+on: [push, pull_request]
+
 jobs:
-  check_code:
+  test:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
-          python-version: "3.8"
-      - name: Run maintest.py
-        run: |
-          python maintest.py  # This will execute your Python file
-      - name: Print success message
-        run: >
-          echo "File has been checked now"  # Print the message after running the
-          file
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install pytest
+
+      - name: Run tests
+        run: python -m unittest test_add.py
